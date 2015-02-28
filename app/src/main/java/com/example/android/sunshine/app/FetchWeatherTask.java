@@ -1,10 +1,10 @@
 package com.example.android.sunshine.app;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
+import com.example.android.sunshine.app.openweathermap.OpenWeatherMap;
 
 import java.util.List;
 
@@ -24,14 +24,13 @@ public class FetchWeatherTask extends AsyncTask<Void, Void, List<WeatherInfo>>  
     }
 
     protected List<WeatherInfo> doInBackground(Void... voids) {
-        PrefsUtility prefs = new PrefsUtility(mContext);
-        Weather weather = new Weather(prefs.getCurrentUnits(), prefs.getCurrentLocation());
-
+        OpenWeatherMap weather = new OpenWeatherMap(mContext);
+        // protect if openWeatherMap cannot return anything
         return weather.GetWeather();
     }
 
     protected void onPostExecute(List<WeatherInfo> weather) {
-        if (! weather.isEmpty()) {
+        if (!weather.isEmpty()) {
             mForecastAdapter.clear();
             mForecastAdapter.addAll(weather);
             mForecastAdapter.notifyDataSetChanged();

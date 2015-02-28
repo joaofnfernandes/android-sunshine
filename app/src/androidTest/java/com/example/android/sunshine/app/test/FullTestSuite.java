@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 /**
  * Created by joaofernandes on 26/8/14.
  */
-public class FullTestSuite extends TestSuite{
+public class FullTestSuite extends TestSuite {
 
     public static Test suite() {
         return new TestSuiteBuilder(FullTestSuite.class)

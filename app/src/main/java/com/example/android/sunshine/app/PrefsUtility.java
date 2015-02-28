@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.ArrayList;
+
 /**
- * Created by joaofernandes on 7/9/14.
+ * Represents an abstraction of the user preferences
  */
 public class PrefsUtility {
 
+    private final String LOG_TAG = PrefsUtility.class.getSimpleName();
     private Context context;
 
     public PrefsUtility(Context context) {
@@ -30,7 +33,7 @@ public class PrefsUtility {
         } else if (units.equals(mImperialUnits)) {
             return Units.IMPERIAL;
         } else {
-            throw new AssertionError();
+            throw new IllegalStateException(LOG_TAG);
         }
     }
 
@@ -42,12 +45,4 @@ public class PrefsUtility {
                                 .getString(locationKey, locationDefaultValue);
     }
 
-    // If the user changes the preferences
-    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChanged =
-            new SharedPreferences.OnSharedPreferenceChangeListener() {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-        }
-    };
 }

@@ -11,8 +11,6 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.location.Location;
 import android.net.Uri;
 
-import com.example.android.sunshine.app.Weather;
-
 /**
  * Created by joaofernandes on 31/8/14.
  */

@@ -1,7 +1,7 @@
 package com.example.android.sunshine.app;
 
 /**
- * Created by joaofernandes on 4/8/14.
+ * Represents the units of measure
  */
 public enum Units {
     METRIC,

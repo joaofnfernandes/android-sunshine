@@ -7,8 +7,6 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 import java.util.Set;
 
-import com.example.android.sunshine.app.Weather;
-import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.data.WeatherContract.*;
 import com.example.android.sunshine.app.data.WeatherDbHelper;
 
