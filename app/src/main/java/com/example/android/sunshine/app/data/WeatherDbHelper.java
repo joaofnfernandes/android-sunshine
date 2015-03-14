@@ -18,6 +18,7 @@ package com.example.android.sunshine.app.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.android.sunshine.app.data.WeatherContract.LocationEntry;
 import com.example.android.sunshine.app.data.WeatherContract.WeatherEntry;
@@ -27,6 +28,7 @@ import com.example.android.sunshine.app.data.WeatherContract.WeatherEntry;
  */
 public class WeatherDbHelper extends SQLiteOpenHelper {
 
+    private final String LOG_TAG = WeatherDbHelper.class.getSimpleName();
     // If you change the database schema, you must increment the database version.
     private static final int DATABASE_VERSION = 2;
 
@@ -38,6 +40,25 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        //todo: check if constrains are correct
+        final String SQL_CREATE_LOCATION_TABLE =
+                new StringBuilder()
+                        .append("CREATE TABLE ")
+                        .append(LocationEntry.TABLE_NAME)
+                        .append(" (")
+                        .append(LocationEntry._ID).append(" INTEGER PRIMARY KEY, ")
+                        .append(LocationEntry.COLUMN_LOCATION_SETTING).append(" TEXT UNIQUE NOT NULL, ")
+                        .append(LocationEntry.COLUMN_CITY_NAME).append(" TEXT NOT NULL, ")
+                        .append(LocationEntry.COLUMN_COORD_LAT).append(" REAL NOT NULL, ")
+                        .append(LocationEntry.COLUMN_COORD_LONG).append(" REAL NOT NULL, ")
+                        .append("UNIQUE (").append(LocationEntry.COLUMN_LOCATION_SETTING).append(") ")
+                        .append("ON CONFLICT IGNORE")
+                        .append(");")
+                        .toString();
+
+        Log.d(LOG_TAG, SQL_CREATE_LOCATION_TABLE);
+
+
         final String SQL_CREATE_WEATHER_TABLE = "CREATE TABLE " + WeatherEntry.TABLE_NAME + " (" +
                 // Why AutoIncrement here, and not above?
                 // Unique keys will be auto-generated in either case.  But for weather
@@ -69,6 +90,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                 " UNIQUE (" + WeatherEntry.COLUMN_DATE + ", " +
                 WeatherEntry.COLUMN_LOC_KEY + ") ON CONFLICT REPLACE);";
 
+        sqLiteDatabase.execSQL(SQL_CREATE_LOCATION_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_WEATHER_TABLE);
     }
 
